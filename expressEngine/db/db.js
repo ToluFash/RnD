@@ -8,7 +8,7 @@ let env = process.env.ENV || "local";
 
 env = (dbUrls[env] && env) || "local"; // if no url configured for env then connect to local env
 
-const db           = {
+const db = {
   url: dbUrls[env],
   options: {
     useNewUrlParser: true,
