@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose
 
-const orderItems = new Schema({
+const orderItem = new Schema({
     orderId: {
         type: String,
         unique:true
@@ -18,6 +18,6 @@ const orderItems = new Schema({
     }
 })
 
-const orderItems = mongoose.model("OrderItems",orderItems)
+const orderItems = mongoose.model("OrderItems",orderItem)
 
 export default orderItems;

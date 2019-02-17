@@ -1,7 +1,5 @@
-import User from './collection/user';
-import UserDetail from './collection/userDetail';
+import orderItems from './collection/orderItems';
 
 export {
-  User,
-  UserDetail,
+  orderItems
 };

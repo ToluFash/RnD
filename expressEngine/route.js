@@ -2,7 +2,7 @@
 import express from 'express';
 
 // import routes
-import UserRoute from './user/route';
+import orderItemsRoute from './orderItems/route';
 
 const app = express();
 
@@ -17,6 +17,6 @@ app.use('/', (req, res, next) => { // to be used to authenticate request
   next();
 })
 
-app.use('/user', UserRoute);
+app.use('/orderItems', orderItemsRoute);
 
 export default app;
