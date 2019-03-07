@@ -9,7 +9,7 @@ class OrderItemsController extends BaseController {
     try {
       console.log('Inside Register OrderItems Method');
 
-      return await OrderItemsService.registerUser(data);
+      return await OrderItemsService.registerorderItems(data);
     } catch (err) {
       return err;
     }
