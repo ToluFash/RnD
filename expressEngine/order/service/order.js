@@ -19,7 +19,7 @@ class Service extends BaseService {
       return result;
 
     } catch (err) {
-      throw new Error(err);
+      throw err;
     }
   }
 }

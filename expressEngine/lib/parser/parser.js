@@ -1,7 +1,7 @@
 import { error } from '../../cms/parser/index';
 import successHandler from '../successHandler';
 
-export default (controller = null, functionName = '') => async (req, res, next) => {
+export default (controller, functionName = '') => async (req, res, next) => {
   const { params, query, body } = req;
 
   try {

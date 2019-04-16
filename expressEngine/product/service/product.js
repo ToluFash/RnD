@@ -18,7 +18,7 @@ class Service extends BaseService {
       });      
       return Product;
     } catch(err) {
-      throw new Error(err);
+      throw err;
     }
   }
 }

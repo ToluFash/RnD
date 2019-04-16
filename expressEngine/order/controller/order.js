@@ -11,7 +11,7 @@ class Controller extends BaseController {
       const orderData = await OrderService.generateOrder(body);
       return { data: orderData, message: success.orderGenerated};
     } catch (err) {
-      throw new Error(err);
+      throw err;
     }
   };
 };

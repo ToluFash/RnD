@@ -12,7 +12,7 @@ class ProductController extends BaseController  {
       const productData = await ProductService.registerProduct(body);
       return {data: productData, message: success.productRegistered};
     } catch (err) {      
-      throw new Error(err);
+      throw err;
     }
   };
 };
