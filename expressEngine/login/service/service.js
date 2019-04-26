@@ -14,14 +14,7 @@ import loginHelper from '../../utils/login';
 // const sgMail = require('@sendgrid/mail');
 // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// const nodemailer = require('nodemailer');
-// // const mailgun = require('mailgun-js');
-// const emailit = require('emailit');
-
-// const DOMAIN = 'sandbox614fb522e50c4fefbc5ce7b4e5d7048f.mailgun.org';
-// const api_key = '2e7eb0b2dd8081313acc9109083bf92d-dc5f81da-52c4d6fe';
-// const mg = mailgun({ apiKey: api_key, domain: DOMAIN });
-class LoginService extends BaseService {
+class LoginService {
     login = async ({ body }) => {
       const { email, password: loginPassword } = body;
       const projection = loginHelper.getProjection();
