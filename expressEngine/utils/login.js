@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import mailgun from 'mailgun-js';
 
 class LoginHelper {
   getProjection = () => {
@@ -24,6 +25,25 @@ class LoginHelper {
       const { KEY: key = 'successive' } = process.env;
       const token = await jwt.sign(data, key);
       return token;
+    } catch (err) {
+      return { error: err };
+    }
+  }
+
+  sendMail = async ({
+    from = 'noReply@RnD.tech', to = '', html = '', text = 'fogot password', subject = 'forgot password',
+  }) => {
+    const mGun = mailgun({ apiKey: process.env.API_KEY, domain: process.env.DOMAIN });
+    const dataToMail = {
+      from,
+      to,
+      subject,
+      text,
+      html,
+    };
+    try {
+      const mail = await mGun.messages().send(dataToMail);
+      return mail;
     } catch (err) {
       return { error: err };
     }

@@ -57,6 +57,9 @@ const UserSchema = new Schema({
   fax: {
     type: String,
   },
+  resetToken: {
+    type: String,
+  },
 }, { collection: 'user', timestamps: true });
 
 /**

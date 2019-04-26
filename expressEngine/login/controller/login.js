@@ -9,5 +9,16 @@ class Controller extends BaseController {
     const loginData = await userService.login(data);
     return loginData;
   };
+
+  forgot = async (data) => {
+    console.log('inside forgot of controller');
+    const forgotPassword = await userService.forgot(data);
+    return forgotPassword;
+  }
+
+  sendgrid = async (data) => {
+    console.log('data in web book is -- ', data.body);
+    return true;
+  }
 }
 export default new Controller();

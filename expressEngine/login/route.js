@@ -10,5 +10,7 @@ import parser from '../lib/parser';
 const router = express.Router();
 
 router.post('/', parser(UserController, 'login'));
+router.post('/forgot-password', parser(UserController, 'forgot'));
+router.post('/sendgrid', parser(UserController, 'sendgrid'));
 
 export default router;
