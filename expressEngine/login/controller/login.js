@@ -14,6 +14,12 @@ class Controller extends BaseController {
     console.log('inside forgot of controller');
     const forgotPassword = await userService.forgot(data);
     return forgotPassword;
+  };
+
+  reset = async (data) => {
+    console.log('inside reset -- ');
+    const resetPassword = await userService.reset(data);
+    return resetPassword;
   }
 
   sendgrid = async (data) => {

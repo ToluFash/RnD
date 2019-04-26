@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken';
+
 // import service libraries
 import { BaseService, DBService } from '../../lib/service';
 
@@ -10,9 +12,6 @@ import { error, success } from '../../cms/user';
 
 // import utils
 import loginHelper from '../../utils/login';
-
-// const sgMail = require('@sendgrid/mail');
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 class LoginService {
     login = async ({ body }) => {
@@ -60,8 +59,8 @@ class LoginService {
 
     forgot = async ({ body }) => {
       const { email } = body;
-      const projection = loginHelper.getProjection();
 
+      const projection = loginHelper.getProjection();
       const isExist = await DBService.findOne(User, { email }, projection);
       if (!isExist) {
         return { error: error.loginError };
@@ -72,19 +71,38 @@ class LoginService {
         return { error: error.tokenError };
       }
 
-      const storeToken = await DBService.Update(User, {
-        resetToken: token,
-      });
+      const storeToken = await DBService.updateOne(User,
+        { email },
+        { resetToken: token });
       if (!storeToken) {
         return { error: error.token };
       }
 
-      // const mail = await loginHelper.sendMail({ to: 'yogeshsingh201197@gmail.com', html: '<html>click here to change</html>' });
-      // console.log('mail ---', mail);
+      // const mail = await loginHelper.sendMail({ to: email, html: `<html>${token}</html>` });
       // if (!mail || mail.error) {
       //   return { error: 'error in change password' };
       // }
-      return true;
+      return { message: 'please check your mail' };
+    }
+
+    reset = async ({ body }) => {
+      const { password, token: resetToken } = body;
+
+      const projection = loginHelper.getProjection();
+      const isExist = await DBService.findOne(User, { resetToken }, projection);
+      if (!isExist) {
+        return { error: 'invalid token entered' };
+      }
+
+      const { email } = jwt.decode(resetToken);
+
+      const storeToken = await DBService.updateOne(User,
+        { email }, { password });
+      if (!storeToken || storeToken.error) {
+        return storeToken;
+      }
+      console.log('\\\\\\--------', storeToken);
+      return { message: 'successfully updated password' };
     }
 }
 

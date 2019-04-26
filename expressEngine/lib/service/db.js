@@ -22,7 +22,7 @@ class DBOperation {
   findOne = async (collection, data = {}, projection = {}) => {
     try {
       return await collection.findOne(data, projection);
-    } catch (err) {      
+    } catch (err) {
       return { error: err.message };
     }
   }
@@ -76,8 +76,9 @@ class DBOperation {
   }
 
   updateOne = async (collection, filter, dataToUpdate) => {
-    try {      
-      return await collection.updateOne(filter, { $set: dataToUpdate });
+    try {
+      const opts = { runValidators: true };
+      return await collection.updateOne(filter, { $set: dataToUpdate }, opts);
     } catch (err) {
       return { error: err.message };
     }
