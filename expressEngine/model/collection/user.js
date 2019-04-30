@@ -65,23 +65,37 @@ const UserSchema = new Schema({
 /**
  * Pre hooks
  */
-UserSchema.pre('save', async function preSave() {
-  console.log('save ---');
+// UserSchema.pre('save', async function preSave() {
+//   console.log('save ---');
+//   const user = this;
+//   user.userId = user._id.toString();
+//   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR); // salt generation
+//   const hash = await bcrypt.hash(user.password, salt); // encrypting password
+//   user.password = hash; // save encrypted text as password
+// });
+UserSchema.post('validate', async function preSave() {
+  console.log('validate ---');
   const user = this;
+  console.log('user is -- ', user);
   user.userId = user._id.toString();
   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR); // salt generation
   const hash = await bcrypt.hash(user.password, salt); // encrypting password
   user.password = hash; // save encrypted text as password
 });
-UserSchema.post('updateOne', async function preUpdate() {
-  // const user = this;
-  console.log('password', this._update.$set.password);
-  const hash = await bcrypt.hash(this._update.$set.password, 10); // encrypting password
-  console.log('hash----', hash);
-  if (this._update.$set.password) { this.update({}, { $set: { password: hash } }); }
-  console.log('-----', this._update.$set.password);
-  // user.update({}, { $set: { password: bcrypt.hash(user.password, 10) } });
-});
+// UserSchema.pre('updateOne', async function preUpdate() {
+//   // const user = this;
+//   if (this._update.$set.password) {
+//     console.log('password---updateOne', this._update.$set.password);
+//     const password = this._update.$set.password
+
+//     const salt = await bcrypt.genSalt(SALT_WORK_FACTOR); // salt generation
+//     const hash = await bcrypt.hash(this._update.$set.password, salt); // encrypting password
+//     console.log('hash----', hash);
+//     this.update({}, { $set: { password: hash } });
+//     console.log('-----', this._update.$set.password);
+//   }
+//   // user.update({}, { $set: { password: bcrypt.hash(user.password, 10) } });
+// });
 
 // index
 UserSchema.index({ email: 1 }, {

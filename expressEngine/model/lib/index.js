@@ -9,6 +9,7 @@ class ModelLib {
 
   };
   validatePassword = (password) => {
+    console.log('password ---', password);
     var re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[A-Za-z\d!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{8,50}$/;
     return re.test(String(password));
   };
